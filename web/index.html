@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tateti contra una IA</title>
+<style>
+  :root {
+    --fondo: #0f1115;
+    --texto: #f2f2f2;
+    --secundario: #9aa0a6;
+    --linea: #2a2e36;
+    --acento: #7cc4ff;
+    --celda: #171a21;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --fondo: #fafafa;
+      --texto: #111;
+      --secundario: #5f6368;
+      --linea: #d8dbe0;
+      --acento: #1a73e8;
+      --celda: #ffffff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+  }
+  main { width: 100%; max-width: 360px; text-align: center; }
+  h1 { font-size: 1.35rem; margin: 0 0 4px; font-weight: 600; }
+  .sub { color: var(--secundario); font-size: 0.9rem; margin: 0 0 18px; }
+  .tablero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 0 auto;
+    max-width: 300px;
+  }
+  .celda {
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    background: var(--celda);
+    color: var(--texto);
+    font-size: 2.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+  }
+  .celda:not(:disabled):hover { background: var(--linea); }
+  .celda:disabled { cursor: default; }
+  .celda:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+  .estado { margin: 14px 0 0; min-height: 1.2em; color: var(--secundario); font-size: 0.95rem; }
+  .panel-fin {
+    margin: 16px auto 0;
+    padding: 14px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    background: var(--celda);
+  }
+  .panel-fin[hidden] { display: none; }
+  .panel-fin p { margin: 0 0 10px; font-size: 1.05rem; font-weight: 600; }
+  button.primario {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--acento);
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .nota { margin-top: 18px; font-size: 0.8rem; color: var(--secundario); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tateti contra una IA</h1>
+  <p class="sub">Entrenada con Q-learning. Quien empieza juega con la X.</p>
+
+  <div id="tablero" class="tablero" role="grid" aria-label="Tablero de tateti"></div>
+
+  <p id="estado" class="estado" aria-live="polite"></p>
+
+  <section id="panel-fin" class="panel-fin" hidden>
+    <p id="mensaje-fin"></p>
+    <button id="nueva-partida" class="primario" type="button">Nueva partida</button>
+  </section>
+
+  <p class="nota">La IA aprendió jugando contra sí misma. Quién empieza alterna en cada partida.</p>
+</main>
+
+<script src="qtable.js"></script>
+<script src="ia.js"></script>
+<script src="tateti.js"></script>
+</body>
+</html>

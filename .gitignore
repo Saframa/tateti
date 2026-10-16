@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+build/
+dist/
+*.exe
+ia_data.json
+sabiduria_ia.json
+node_modules/
+.DS_Store
